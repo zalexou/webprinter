@@ -1,0 +1,30 @@
+{
+  "name": "webprinter",
+  "version": "1.0.0",
+  "description": "Capture web into static documents",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zalexou/webprinter.git"
+  },
+  "keywords": [
+    "web",
+    "pdf",
+    "png"
+  ],
+  "author": "zalexou",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zalexou/webprinter/issues"
+  },
+  "homepage": "https://github.com/zalexou/webprinter#readme",
+  "dependencies": {
+    "electron": "^1.4.3",
+    "electron-prebuilt": "^1.4.3",
+    "fs": "0.0.1-security",
+    "jquery": "^3.1.1"
+  }
+}
