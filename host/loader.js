@@ -1,8 +1,10 @@
 /**
  * Created by alex on 08/10/2016.
  */
+const config = require('./config');
+
 function run(window, callback) {
-    window.loadURL("http://google.com");
+    window.loadURL(config.args.url);
     window.webContents.on('dom-ready', () => {
         callback(null, window);
     });
