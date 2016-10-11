@@ -30,8 +30,8 @@ const argsConfigs = {
             var sp = _.split(value, 'x');
             if(sp[1]) {
                 return {
-                    width: sp[0],
-                    height: sp[1]
+                    width: parseInt(sp[0]),
+                    height: parseInt(sp[1])
                 }
             } else {
                 return value;
@@ -49,6 +49,33 @@ const argsConfigs = {
                 return true;
             } else {
                 return false;
+            }
+        }
+    },
+    'w': {
+        def: {
+            width: 800,
+            height: 600
+        },
+        check: (value)  => {
+            if(typeof value !== 'string') {
+                return {err: true};
+            }
+            var sp = _.split(value, 'x');
+            if(sp.length !== 2) {
+                return {err: true};
+            }
+            return null;
+        },
+        format: (value) => {
+            var sp = _.split(value, 'x');
+            if(sp[1]) {
+                return {
+                    width: parseInt(sp[0]),
+                    height: parseInt(sp[1])
+                }
+            } else {
+                return value;
             }
         }
     },
@@ -70,6 +97,7 @@ function run() {
     config.printBackground = getParam('k');
     config.js = getParam('j');
     config.css = getParam('s');
+    config.windowSize = getParam('w');
     console.log(config);
 
 }
