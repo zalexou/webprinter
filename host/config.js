@@ -8,13 +8,10 @@ var config = {
 
 };
 
-const possibleValues = {
+const argsConfigs = {
     'o': {
         list: ['portrait', 'landscape'],
-        def: 'portrait',
-        check: () => {
-            return {err: true};
-        }
+        def: 'portrait'
     },
     'p': {
         list: ['Legal', 'Letter', 'Tabloid', 'A3', 'A4', 'A5'],
@@ -40,45 +37,71 @@ const possibleValues = {
                 return value;
             }
         }
+    },
+    'f': {
+        def: "out"
+    },
+    'k': {
+        list: ['true', 'false'],
+        def: false,
+        format: (value) => {
+            if(value === 'true') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    'j': {
+
+    },
+    's': {
+
     }
 };
 
 function run() {
+    console.log(argv);
     config.url = argv._[0];
 
     config.orientation = getParam('o');
     config.pageSize = getParam('p');
+    config.filename = getParam('f');
+    config.printBackground = getParam('k');
+    config.js = getParam('j');
+    config.css = getParam('s');
     console.log(config);
-    //config.orientation = argv['o'] || argv['orientation'] || 'portrait';
-    //confiog.pageSize = argv['p'] || argv['page'] || argv['pageSize'] || 'A4';
 
-};
+}
 
 function getParam(cat) {
     var value = _.get(argv, cat, null);
     if(value) {
         var check = checkArg(cat, value);
         if(check) {
-            console.error('PROUT')
             throw check;
         } else {
             return formatArg(cat, value);
         }
     } else {
-        return possibleValues[cat].def;
+        return argsConfigs[cat].def || null;
     }
 }
 
 function checkArg(cat, value) {
-    var paramConfig = possibleValues[cat];
-    if(paramConfig.list.indexOf(value) !== -1) {
+    var paramConfig = argsConfigs[cat];
+    if(paramConfig.list && paramConfig.list.indexOf(value) !== -1) {
         return null;
     }
-    return paramConfig.check(value);
+    if(paramConfig.check) {
+        return paramConfig.check(value);
+    } else {
+        return null;
+    }
 }
 
 function formatArg(cat, value) {
-    var paramConfig = possibleValues[cat];
+    var paramConfig = argsConfigs[cat];
     if(paramConfig.format) {
         return paramConfig.format(value);
     } else {

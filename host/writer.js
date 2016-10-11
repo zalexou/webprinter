@@ -5,7 +5,7 @@ const fs = require('fs');
 const config = require('./config');
 
 function run(documentData, callback) {
-    fs.writeFile('page.pdf', documentData, onFileReady(callback));
+    fs.writeFile(config.args.filename, documentData, onFileReady(callback));
 };
 
 function onFileReady(callback) {

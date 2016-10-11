@@ -4,6 +4,7 @@ const waterfall = require('async/waterfall');
 
 //Homebrew
 const loader = require('./host/loader');
+const injector = require('./host/injector');
 const printer = require('./host/printer');
 const writer = require('./host/writer');
 const config = require('./host/config');
@@ -23,6 +24,7 @@ function createWindow () {
     waterfall([
         (cb) => { cb(null, win)},
         loader.run,
+        injector.run,
         printer.run,
         writer.run
     ]);

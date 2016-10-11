@@ -1,12 +1,14 @@
 /**
  * Created by alex on 08/10/2016.
  */
+const config = require('./config');
+
 function run(window, callback) {
     window.webContents.printToPDF({
         marginsType: 1,
-        pageSize: 'A4',
-        landscape: false,
-        printBackground: true
+        pageSize: config.args.pageSize,
+        landscape: config.args.orientation === 'landscape',
+        printBackground: config.args.printBackground
     }, dataReady(callback));
 };
 
