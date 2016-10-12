@@ -41,7 +41,7 @@ const argsConfigs = {
     'f': {
         def: "out"
     },
-    'k': {
+    'bg': {
         list: ['true', 'false'],
         def: false,
         format: (value) => {
@@ -52,7 +52,7 @@ const argsConfigs = {
             }
         }
     },
-    'w': {
+    'ws': {
         def: {
             width: 800,
             height: 600
@@ -79,10 +79,10 @@ const argsConfigs = {
             }
         }
     },
-    'j': {
+    'js': {
 
     },
-    's': {
+    'css': {
 
     }
 };
@@ -94,10 +94,10 @@ function run() {
     config.orientation = getParam('o');
     config.pageSize = getParam('p');
     config.filename = getParam('f');
-    config.printBackground = getParam('k');
-    config.js = getParam('j');
-    config.css = getParam('s');
-    config.windowSize = getParam('w');
+    config.printBackground = getParam('bg');
+    config.js = getParam('js');
+    config.css = getParam('css');
+    config.windowSize = getParam('ws');
     console.log(config);
 
 }
