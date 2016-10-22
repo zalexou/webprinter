@@ -79,6 +79,22 @@ const argsConfigs = {
             }
         }
     },
+    'd': {
+        def: 0,
+        check: (value) => {
+            var int = parseInt(value);
+            if(int < 0) {
+                return {err: true};
+            }
+            return null;
+        },
+        format: (value) => {
+            return parseInt(value);
+        }
+    },
+    'waitfor': {
+
+    },
     'js': {
 
     },
@@ -98,6 +114,8 @@ function run() {
     config.js = getParam('js');
     config.css = getParam('css');
     config.windowSize = getParam('ws');
+    config.delay = getParam('d');
+    config.waitFor = getParam('waitfor');
     console.log(config);
 
 }

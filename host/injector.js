@@ -15,23 +15,20 @@ function run(window, callback) {
     }
 
     if(js) {
-        var start = Date.now;
         injectJS(window, js, () => {
-            jsLoad.resolve(Date.now - start);
+            jsLoad.resolve();
         });
     } else {
         jsLoad.resolve();
     }
-
-    q.all([
+    
+    var rdy = q.all([
         jsLoadPromise
-    ], onInjected(window, callback))
-}
+    ]);
 
-function onInjected(window, callback) {
-    return () => {
+    rdy.then(() => {
         callback(null, window);
-    }
+    })
 }
 
 function injectCSS(window, css) {

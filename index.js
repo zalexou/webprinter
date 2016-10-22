@@ -13,7 +13,6 @@ let win;
 
 function createWindow () {
     config.run();
-
     win = new BrowserWindow(config.args.windowSize);
     win.on('closed', () => {
         win = null;
