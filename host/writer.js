@@ -2,10 +2,10 @@
  * Created by alex on 08/10/2016.
  */
 const fs = require('fs');
-const config = require('./config');
+const config = require('electron').remote.getGlobal('sharedObject').config;
 
 function run(documentData, callback) {
-    fs.writeFile(config.args.filename, documentData, onFileReady(callback));
+    fs.writeFile(config.filename, documentData, onFileReady(callback));
 };
 
 function onFileReady(callback) {

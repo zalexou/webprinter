@@ -1,15 +1,15 @@
 /**
  * Created by alex on 11/10/2016.
  */
-const config = require('./config');
+const config = require('electron').remote.getGlobal('sharedObject').config;
 const q = require('q');
 
 function run(webview, callback) {
     var jsLoad = q.defer();
     var jsLoadPromise = jsLoad.promise;
 
-    var js = config.args.js;
-    var css = config.args.css;
+    var js = config.js;
+    var css = config.css;
     if(css) {
         injectCSS(webview, ""+css);
     }

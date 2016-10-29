@@ -25,7 +25,7 @@ function createWebview() {
 function run() {
     createWebview();
     waterfall([
-     (cb) => { cb(null, webview)},
+     cb => cb(null, webview),
      loader.run,
      injector.run,
      printer.run,

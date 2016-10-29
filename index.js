@@ -10,25 +10,16 @@ global.sharedObject = {
 
 function createWindow () {
     global.sharedObject.config = config.run();
+    console.log("window size: ", config.args.windowSize);
     win = new BrowserWindow(config.args.windowSize);
     win.on('closed', () => {
         win = null;
     });
     win.webContents.openDevTools();
     win.loadURL(`file://${__dirname}/renderer.html`);
-    //createWebview();
-    
-   /* waterfall([
-        (cb) => { cb(null, webview)},
-        loader.run,
-        injector.run,
-        printer.run,
-        writer.run
-    ]);*/
 }
 
 function pleaseStop() {
-    console.log('stopping process');
     if (process.platform !== 'darwin') {
         app.quit()
     }

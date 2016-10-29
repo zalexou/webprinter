@@ -1,7 +1,7 @@
 /**
  * Created by alex on 08/10/2016.
  */
-const config = require('./config');
+const config = require('electron').remote.getGlobal('sharedObject').config;
 const q = require('q');
 
 function run(webview, callback) {
@@ -11,18 +11,18 @@ function run(webview, callback) {
     var waitForDefered = q.defer();
     var waitForPromise = waitForDefered.promise;
     
-    if(config.args.delay) {
+    if(config.delay) {
         setTimeout(() => {
             delayDefered.resolve();
-        }, config.args.delay)
+        }, config.delay)
     } else {
         delayDefered.resolve();
     }
 
-    if(config.args.waitFor) {
+    if(config.waitFor) {
         webview.addEventListener('console-message', (message) => {
             console.log("MESSAGE RECIEVED", message)
-            if(message == config.args.waitFor) {
+            if(message == config.waitFor) {
                 waitForDefered.resolve();
             }
         });
@@ -44,9 +44,9 @@ function run(webview, callback) {
 function doPrintPdf(webview, callback) {
     webview.printToPDF({
         marginsType: 1,
-        pageSize: config.args.pageSize,
-        landscape: config.args.orientation === 'landscape',
-        printBackground: config.args.printBackground
+        pageSize: config.pageSize,
+        landscape: config.orientation === 'landscape',
+        printBackground: config.printBackground
     }, dataReady(callback));
 }
 
