@@ -4,18 +4,18 @@
 const config = require('./config');
 const q = require('q');
 
-function run(window, callback) {
+function run(webview, callback) {
     var jsLoad = q.defer();
     var jsLoadPromise = jsLoad.promise;
 
     var js = config.args.js;
     var css = config.args.css;
     if(css) {
-        injectCSS(window, ""+css);
+        injectCSS(webview, ""+css);
     }
 
     if(js) {
-        injectJS(window, js, () => {
+        injectJS(webview, js, () => {
             jsLoad.resolve();
         });
     } else {
@@ -27,16 +27,16 @@ function run(window, callback) {
     ]);
 
     rdy.then(() => {
-        callback(null, window);
+        callback(null, webview);
     })
 }
 
-function injectCSS(window, css) {
-    window.webContents.insertCSS(css);
+function injectCSS(webview, css) {
+    webview.insertCSS(css);
 }
 
-function injectJS(window, js, callback) {
-    window.webContents.executeJavaScript(js, true, callback);
+function injectJS(webview, js, callback) {
+    webview.executeJavaScript(js, true, callback);
 }
 
 module.exports = {

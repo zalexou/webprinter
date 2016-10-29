@@ -1,32 +1,30 @@
 //Vendors
 const {app, BrowserWindow} = require('electron');
-const waterfall = require('async/waterfall');
-
-//Homebrew
-const loader = require('./host/loader');
-const injector = require('./host/injector');
-const printer = require('./host/printer');
-const writer = require('./host/writer');
 const config = require('./host/config');
 
 let win;
 
+global.sharedObject = {
+    someProperty: 'default value'
+};
+
 function createWindow () {
-    config.run();
+    global.sharedObject.config = config.run();
     win = new BrowserWindow(config.args.windowSize);
     win.on('closed', () => {
         win = null;
     });
-
     win.webContents.openDevTools();
-
-    waterfall([
-        (cb) => { cb(null, win)},
+    win.loadURL(`file://${__dirname}/renderer.html`);
+    //createWebview();
+    
+   /* waterfall([
+        (cb) => { cb(null, webview)},
         loader.run,
         injector.run,
         printer.run,
         writer.run
-    ]);
+    ]);*/
 }
 
 function pleaseStop() {

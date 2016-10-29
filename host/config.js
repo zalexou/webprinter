@@ -116,8 +116,7 @@ function run() {
     config.windowSize = getParam('ws');
     config.delay = getParam('d');
     config.waitFor = getParam('waitfor');
-    console.log(config);
-
+    return config;
 }
 
 function getParam(cat) {

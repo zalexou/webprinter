@@ -4,7 +4,7 @@
 const config = require('./config');
 const q = require('q');
 
-function run(window, callback) {
+function run(webview, callback) {
     var delayDefered = q.defer();
     var delayPromise = delayDefered.promise;
 
@@ -20,7 +20,7 @@ function run(window, callback) {
     }
 
     if(config.args.waitFor) {
-        window.webContents.on('message', (message) => {
+        webview.addEventListener('console-message', (message) => {
             console.log("MESSAGE RECIEVED", message)
             if(message == config.args.waitFor) {
                 waitForDefered.resolve();
@@ -37,12 +37,12 @@ function run(window, callback) {
     ]);
 
     rdy.then(() => {
-        doPrintPdf(window, callback);
+        doPrintPdf(webview, callback);
     })
 }
 
-function doPrintPdf(window, callback) {
-    window.webContents.printToPDF({
+function doPrintPdf(webview, callback) {
+    webview.printToPDF({
         marginsType: 1,
         pageSize: config.args.pageSize,
         landscape: config.args.orientation === 'landscape',
